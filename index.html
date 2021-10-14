@@ -1,0 +1,59 @@
+<html>
+<head>
+    <title>Monster Slayer</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+    <div>
+        <h1 id="main-title" class="text-center">The Monster Slayer Game</h1>
+    </div>
+
+    <div id="app">
+        <section class="row">
+            <div class="small-6 columns">
+              <h1 class="text-center">YOU</h1>
+                <div class="healthbar">
+                    <div :style="playerHealthBar" class="healthbar text-center" style="background-color: green; margin: 0; color: black; font-size: 30;">
+                        {{ playerHealth }}
+                    </div>
+                </div>               
+            </div>
+            <div class="small-6 columns">
+                     <h1 class="text-center">GOBLIN</h1>           
+                <div class="healthbar">
+                    <div :style="goblinHealthBar" class="healthbar text-center" style="background-color: green; margin: 0; color: black; font-size: 30;">
+                        {{ goblinsHealth }}
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="row controls" v-if="!gameIsRunning">
+            <div class="small-12 columns">
+                <button id="start-game" @click="startGame" style="height: 40;">START NEW GAME</button>
+            </div>
+        </section>
+        <section class="row controls" v-else>
+            <div class="small-12 columns">
+                <button id="attack" @click="attack" style="height: 40;">ATTACK</button>
+                <button id="hard-attack" @click="hardAttack" style="height: 40;">HARD ATTACK</button>
+                <button id="defend" @click="defend" style="height: 40;">DEFEND </button>
+            </div>
+        </section>
+        <section class="row log" v-if="turns.length > 0">
+            <div class="small-12 columns">
+                <ul>        
+                    <li v-if="gameOver" style="font-size: 30;">
+                        <p>{{gameOver}}</p>
+                    </li>       
+                    <li v-for="turn in turns" :class="{'player-turn': turn.isPlayer, 'goblin-turn': !turn.isPlayer}">
+                        {{ turn.text }}
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
